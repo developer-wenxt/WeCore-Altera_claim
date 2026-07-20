@@ -1,5 +1,7 @@
-const express = require('express');
+const express = require('express')
+const cors = require("cors");
 const app = express();
+
 const routes = require('./routes');
 const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middlewares/errorHandler');
@@ -15,12 +17,19 @@ const limiter = rateLimit({ windowMs: 15*60*1000, max: 100 });
 app.use(limiter);
 app.use(responseFormatter);  
 // Public endpoints
-app.post('/api/v1/register', register);
-app.post('/api/v1/login', login);
-app.use('/api/v1', routes); // UNCOMMENT LINE 22 after KT
+app.post('/api/register', register);
+app.post('/api/login', login);
+app.use('/api', routes); // UNCOMMENT LINE 22 after KT
 // Protected endpoints
 //app.use('/api/v1', auth, routes);
 app.use(errorHandler);
+ app.use(
+    cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      credentials: false, // must be false when origin is "*"
+    })
+  );
 
 sequelize.authenticate()
   .then(() => {
