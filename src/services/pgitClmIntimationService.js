@@ -10,10 +10,21 @@ exports.getAll = async (filters, { limit = 10, offset = 0, order } = {}) => {
       'CI_POL_NO',
       'CI_LOSS_DT',
       'CI_INTM_DT',
-      'CI_CR_DT'
+      'CI_CR_DT',
+      'CI_SYS_ID'
     
     ],
      limit, offset, ...(order && { order }) });
+};
+ 
+exports.getById = async (id) => {
+  const item = await PgitClmIntimation.findByPk(id);
+  if (!item) {
+    const error = new Error(`PgitClmIntimation with ID ${id} not found`);
+    error.statusCode = 404;
+    throw error;
+  }
+  return item;
 };
  
 async function getNextClmIntSysId() {

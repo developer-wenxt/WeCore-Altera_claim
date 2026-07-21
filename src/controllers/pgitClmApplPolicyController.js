@@ -12,6 +12,15 @@ exports.getAll = async (req, res, next) => {
   }
 };
 
+exports.getById = async (req, res, next) => {
+  try {
+    const result = await pgitClmApplPolicyService.getById(req.params.id);
+    return successResponse(res, 200, "Data Fetched", result);
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.create = async (req, res, next) => {
   try {
     const result = await pgitClmApplPolicyService.create(req.body);
