@@ -47,3 +47,16 @@ exports.deleteItem = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.generateDocumentNumber = async (req, res, next) => {
+  try {
+    const sysId = req.body.sysId || req.query.sysId || req.params.id;
+    if (!sysId) {
+      return res.status(400).json({ status: 'error', message: 'sysId is required' });
+    }
+    const result = await pgitClaimService.generateDocumentNumber(sysId);
+    return successResponse(res, 200, "Document Number Generated", result);
+  } catch (err) {
+    next(err);
+  }
+};

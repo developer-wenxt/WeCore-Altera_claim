@@ -15,6 +15,9 @@ const clmRegField = require('./claimRegisterFieldRoute');
 const clmRegDtlField = require('./clmRegRiskDtlsFieldRoute');
 const estDtlField = require('./estDtlFieldRoute');
 const setField = require('./setFieldRoute');
+const dropDown = require('./dropdownRoute');
+const intLov = require('./intLovRoute');
+
 
 router.use('/users', userRoutes);
 router.use('/orders', orderRoutes);
@@ -30,5 +33,7 @@ router.use('/clmRegField',clmRegField);
 router.use('/clmRegDtlField',clmRegDtlField)
 router.use('/estDtlField',estDtlField);
 router.use('/setField',setField);
+router.use('/dropDown',dropDown);
+router.use('/lovField',intLov);
 
 module.exports = router;

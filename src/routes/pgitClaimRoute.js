@@ -3,6 +3,7 @@ const router = express.Router();
 const pgitClaimController = require('../controllers/pgitClaimController');
 
 router.get('/', pgitClaimController.getAll);
+router.post('/clmNo', pgitClaimController.generateDocumentNumber);
 router.get('/:id', pgitClaimController.getById);
 router.post('/', pgitClaimController.create);
 router.put('/:id', pgitClaimController.update);

@@ -14,7 +14,8 @@ exports.getAll = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
   try {
-    const result = await pgitClmIntimationService.getById(req.params.id);
+    const id = req.query.CI_INTM_NO || req.params.id;
+    const result = await pgitClmIntimationService.getById(id);
     return successResponse(res, 200, "Data Fetched", result);
   } catch (err) {
     next(err);

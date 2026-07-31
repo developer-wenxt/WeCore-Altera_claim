@@ -5,13 +5,23 @@ exports.getAll = async (filters, { limit = 10, offset = 0, order } = {}) => {
 };
 
 exports.getById = async (id) => {
-  const item = await PgitClmApplPolicy.findByPk(id);
-  if (!item) {
-    const error = new Error(`PgitClmApplPolicy with ID ${id} not found`);
+  const items = await PgitClmApplPolicy.findAll({
+    where: { CLMAP_CLM_SYS_ID: id },
+    raw: true
+  });
+  if (!items || items.length === 0) {
+    const error = new Error(`PgitClmApplPolicy with CLMAP_CLM_SYS_ID ${id} not found`);
     error.statusCode = 404;
     throw error;
   }
-  return item;
+
+  const groupedResult = items.reduce((acc, row) => {
+    const key = row.CLMAP_SYS_ID;
+    (acc[key] ??= []).push(row);
+    return acc;
+  }, {});
+
+  return groupedResult;
 };
 
 exports.create = async (data) => {

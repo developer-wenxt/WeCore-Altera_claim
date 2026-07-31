@@ -1,26 +1,23 @@
 const { PgitClmIntimation, sequelize, Sequelize } = require('../models');
 const { QueryTypes } = Sequelize;
- 
-exports.getAll = async (filters, { limit = 10, offset = 0, order } = {}) => {
-  return PgitClmIntimation.findAll({ where: filters,
-        attributes: [
-      'CI_INTM_NO',
-      'CI_INTM_NAME',
-      'CI_ASSR_NAME',
-      'CI_POL_NO',
-      'CI_LOSS_DT',
-      'CI_INTM_DT',
-      'CI_CR_DT',
-      'CI_SYS_ID'
-    
-    ],
-     limit, offset, ...(order && { order }) });
+  
+exports.getAll = async (filters, queryOptions) => {
+  const where = {};
+  if (filters.CI_SYS_ID) where.CI_SYS_ID = filters.CI_SYS_ID;
+  if (filters.CI_INTM_NO) where.CI_INTM_NO = filters.CI_INTM_NO;
+
+  const result = await PgitClmIntimation.findAll({
+    where,
+    ...queryOptions
+  });
+  return result;
 };
- 
+
+
 exports.getById = async (id) => {
-  const item = await PgitClmIntimation.findByPk(id);
+  const item = await PgitClmIntimation.findOne({ where: { CI_INTM_NO: id } });
   if (!item) {
-    const error = new Error(`PgitClmIntimation with ID ${id} not found`);
+    const error = new Error(`PgitClmIntimation with CI_INTM_NO ${id} not found`);
     error.statusCode = 404;
     throw error;
   }
