@@ -2,8 +2,8 @@ const { PgitClaim, sequelize, Sequelize } = require('../models');
 const { QueryTypes } = Sequelize;
 
 exports.getAll = async (filters, { limit = 10, offset = 0, order } = {}) => {
-  return PgitClaim.findAll({ 
-    where: filters, 
+  return PgitClaim.findAll({
+    where: filters,
     attributes: [
       'CLM_SYS_ID',
       'CLM_INTM_NO',
@@ -16,9 +16,9 @@ exports.getAll = async (filters, { limit = 10, offset = 0, order } = {}) => {
       'CLM_INTM_DT',
       'CLM_CR_DT'
     ],
-    limit, 
-    offset, 
-    ...(order && { order }) 
+    limit,
+    offset,
+    ...(order && { order })
   });
 };
 

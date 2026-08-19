@@ -118,9 +118,10 @@ exports.create = async (data) => {
 };
  
 exports.update = async (id, updatedData) => {
-  const item = await PgitClmIntimation.findByPk(id);
+  const whereClause = isNaN(Number(id)) ? { CI_INTM_NO: id } : { CI_SYS_ID: id };
+  const item = await PgitClmIntimation.findOne({ where: whereClause });
   if (!item) {
-    const error = new Error(`PgitClmIntimation with ID ${id} not found`);
+    const error = new Error(`PgitClmIntimation with ID/CI_INTM_NO ${id} not found`);
     error.statusCode = 404;
     throw error;
   }
@@ -129,9 +130,10 @@ exports.update = async (id, updatedData) => {
 };
  
 exports.deleteItem = async (id) => {
-  const item = await PgitClmIntimation.findByPk(id);
+  const whereClause = isNaN(Number(id)) ? { CI_INTM_NO: id } : { CI_SYS_ID: id };
+  const item = await PgitClmIntimation.findOne({ where: whereClause });
   if (!item) {
-    const error = new Error(`PgitClmIntimation with ID ${id} not found`);
+    const error = new Error(`PgitClmIntimation with ID/CI_INTM_NO ${id} not found`);
     error.statusCode = 404;
     throw error;
   }
