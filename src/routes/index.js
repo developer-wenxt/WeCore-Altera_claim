@@ -21,6 +21,10 @@ const intLov = require('./intLovRoute');
 const policyData = require('./policyDataRoute');
 const intiData = require('./intiDataRoute');
 const riskDtlReg = require('./riskDtlRegRoute');
+const FCandLCvaluesRouter = require('./FCandLCvaluesRoute');
+const settlementCreationRouter = require('./settlementCreationRoute');
+const settlementApprovalRouter = require('./settlementApprovalRoute');
+const polAcntEntryRoute=require('./polAcntEntryRoute.js');
 
 
 router.use('/users', userRoutes);
@@ -43,5 +47,10 @@ router.use('/lovField',intLov);
 router.use('/policyData',policyData);
 router.use('/intiData', intiData);
 router.use('/riskDtlReg', riskDtlReg);
+router.use('/FCandLCvalues', FCandLCvaluesRouter);
+router.use('/settlementCreation', settlementCreationRouter);
+router.use('/settlementApproval', settlementApprovalRouter);
+router.use('/polAcntEntry',polAcntEntryRoute);
+
 
 module.exports = router;

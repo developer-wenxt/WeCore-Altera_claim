@@ -14,7 +14,7 @@ exports.getAll = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
   try {
-    const id = req.query.CLMAP_CLM_SYS_ID || req.query.id || req.params.id;
+    const id = req.query.CLMAP_SYS_ID || req.query.id || req.params.id;
     const result = await pgitClmApplPolicyService.getById(id);
     return successResponse(res, 200, "Data Fetched", result);
   } catch (err) {

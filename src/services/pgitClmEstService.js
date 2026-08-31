@@ -1,4 +1,5 @@
-const { PgitClmEst } = require('../models');
+const { PgitClmEst, sequelize, Sequelize } = require('../models');
+const { QueryTypes } = Sequelize;
 
 exports.getAll = async (filters, { limit = 10, offset = 0, order } = {}) => {
   return PgitClmEst.findAll({ where: filters, limit, offset, ...(order && { order }) });
@@ -24,8 +25,19 @@ exports.getById = async (id) => {
   return groupedResult;
 };
 
+async function getNextCeSysId() {
+  const [result] = await sequelize.query(
+    'SELECT PGI_CE_SYS_ID.NEXTVAL AS NEXTVAL FROM DUAL',
+    { type: QueryTypes.SELECT }
+  );
+  return result.NEXTVAL;
+}
+
 exports.create = async (data) => {
-  return await PgitClmEst.create(data);
+  const nextId = await getNextCeSysId();
+  data.CE_SYS_ID = nextId;
+  await PgitClmEst.create(data);
+  return await PgitClmEst.findByPk(nextId);
 };
 
 exports.update = async (id, updatedData) => {

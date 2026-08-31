@@ -6,11 +6,11 @@ exports.getAll = async (filters, { limit = 10, offset = 0, order } = {}) => {
 
 exports.getById = async (id) => {
   const items = await PgitClmSetl.findAll({
-    where: { CS_CLMAP_SYS_ID: id },
+    where: { CS_CE_SYS_ID: id },
     raw: true
   });
   if (!items || items.length === 0) {
-    const error = new Error(`PgitClmSetl with CS_CLMAP_SYS_ID ${id} not found`);
+    const error = new Error(`PgitClmSetl with CS_CE_SYS_ID ${id} not found`);
     error.statusCode = 404;
     throw error;
   }
