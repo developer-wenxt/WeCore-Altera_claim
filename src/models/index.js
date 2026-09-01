@@ -1,7 +1,19 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-require('oracledb'); // Important for Oracle support
+const oracledb = require('oracledb');
+
+// Initialize Oracle client using ORACLE_LIB_DIR from .env
+try {
+  const initOptions = {};
+  if (process.env.ORACLE_LIB_DIR) {
+    initOptions.libDir = process.env.ORACLE_LIB_DIR;
+  }
+  oracledb.initOracleClient(initOptions);
+} catch (err) {
+  console.error('Error initializing Oracle Client:', err);
+  process.exit(1);
+}
 
 const sequelize = new Sequelize(
   process.env.DB_NAME, // Service name for Oracle
