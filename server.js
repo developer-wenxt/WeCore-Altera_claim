@@ -3,20 +3,17 @@ const path = require('path');
 const oracledb = require('oracledb');
 
 try {
-  if (process.env.ORACLE_CLIENT_DIR) {
-    oracledb.initOracleClient({ libDir: process.env.ORACLE_CLIENT_DIR });
-  } else if (process.platform === 'linux' && process.env.LD_LIBRARY_PATH) {
-    oracledb.initOracleClient();
-  }
-  // If no libDir or LD_LIBRARY_PATH specified, node-oracledb 6+ defaults to Thin mode automatically
+  oracledb.initOracleClient({ libDir: 'C:\\Users\\wenxt039\\OneDrive - WeNxt Technologies\\Desktop\\asdfg\\WeCore-Altera\\instantclient_19_22' });
 } catch (err) {
-  console.error('Warning/Error initializing Oracle Client (Thick mode):', err.message);
-  // Do not crash immediately if thin mode might work
+  console.error('Whoops! Error initializing Oracle Client:', err);
+  process.exit(1);
 }
 
 const app = require('./src/app');
-const PORT = process.env.PORT || 7777;
 
-app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server running at http://${HOST}:${PORT}`);
 });
