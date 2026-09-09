@@ -1,0 +1,13 @@
+node_modules
+dist
+instantclient_*
+*.exe
+*.log
+.git
+.gitignore
+.vscode
+sea-prep.blob
+sea-config.json
+bundle.js
+dev.bat
+start.bat

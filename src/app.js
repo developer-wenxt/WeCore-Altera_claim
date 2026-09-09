@@ -12,6 +12,16 @@ const responseFormatter = require('./middlewares/responseFormatter');
 const sequelize = db.sequelize;
 
 
+
+ app.use(
+    cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      credentials: false, // must be false when origin is "*"
+    })
+  );
+
+
 app.use(express.json());
 const limiter = rateLimit({ windowMs: 15*60*1000, max: 100000000000 });
 app.use(limiter);
@@ -23,13 +33,6 @@ app.use('/api', routes); // UNCOMMENT LINE 22 after KT
 // Protected endpoints
 //app.use('/api/v1', auth, routes);
 app.use(errorHandler);
- app.use(
-    cors({
-      origin: "*",
-      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      credentials: false, // must be false when origin is "*"
-    })
-  );
 
 sequelize.authenticate()
   .then(() => {

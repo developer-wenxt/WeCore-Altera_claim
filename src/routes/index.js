@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const userRoutes = require('./userRoutes');
-const orderRoutes = require('./orderRoutes');
+const orderRoutes = require('./OrderRoutes');
 const menuListRoutes = require('./menuListRoute');
 const menuListClaimRoutes = require('./menuListClaimRoute');
 const claimRegisterRoutes = require('./claimRegisterRoute');
