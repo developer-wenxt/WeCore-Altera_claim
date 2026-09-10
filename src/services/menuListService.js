@@ -25,9 +25,9 @@ FROM MENU_MENUS A, MENU_MENUS P
 WHERE A.MENU_PARAMETER_11 = '10' 
 AND   A.MENU_ACTION LIKE 'PGIT0007%'
 AND   P.MENU_ID = A.MENU_PARENT_ID
-AND   UPPER(P.MENU_SCR_NAME) NOT LIKE '%LIFE%';`;
+AND   UPPER(P.MENU_SCR_NAME) NOT LIKE '%LIFE%'`;
 
-  const records = await sequelize.query(query, {
+  const records = await sequelize.query(query.trim().replace(/;+$/, ""), {
     type: QueryTypes.SELECT,
   });
 

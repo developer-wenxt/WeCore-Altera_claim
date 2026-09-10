@@ -6,9 +6,9 @@ exports.get = async ( progCode,blockName ) => {
                   pld_prod_code, PLD_SECTION_CODE
           FROM PGIM_LOV_DEFN
         WHERE PLD_PROG_CODE =:progCode
-          AND PLD_BLOCK_NAME =:blockName;`;
+          AND PLD_BLOCK_NAME =:blockName`;
 
-  const records = await sequelize.query(query, { type: QueryTypes.SELECT,replacements: { progCode, blockName } });
+  const records = await sequelize.query(query.trim().replace(/;+$/, ""), { type: QueryTypes.SELECT,replacements: { progCode, blockName } });
 
   return records;
 };

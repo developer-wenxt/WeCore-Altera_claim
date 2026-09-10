@@ -23,9 +23,9 @@ exports.get = async () => {
       AND PFD_PROG_CODE='PGIT8000' 
       AND PFD_FLD_NAME NOT LIKE 'M_%'
       GROUP BY PFD_FLD_NAME 
-    ORDER BY "DISPLAY_ORDER_NO";`;
+    ORDER BY "DISPLAY_ORDER_NO"`;
 
-  const records = await sequelize.query(query, {
+  const records = await sequelize.query(query.trim().replace(/;+$/, ""), {
     type: QueryTypes.SELECT,
   });
 

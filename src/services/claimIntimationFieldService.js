@@ -26,9 +26,9 @@ exports.get = async () => {
     AND IFD_CANVAS_NAME='PGIT_CLM_INTIMATION'
     AND IFD_PROG_CODE='PGIT0007'
   GROUP BY IFD_PBF_FLD_NAME  
-  ORDER BY "DISPLAY_ORDER_NO";`;
+  ORDER BY "DISPLAY_ORDER_NO"`;
 
-  const records = await sequelize.query(query, {
+  const records = await sequelize.query(query.trim().replace(/;+$/, ""), {
     type: QueryTypes.SELECT,
   });
 
