@@ -7,7 +7,7 @@ class IntiDataService {
       throw new Error("Missing required parameter: intmNo");
     }
 
-    const intmSql = "SELECT CI_POL_NO,CI_INTM_NO,CI_LOSS_DT,CI_INTM_DT,CI_ASSR_NAME,CI_EVENT_CODE FROM PGIT_CLM_INTIMATION WHERE CI_INTM_NO=:intmNo";
+    const intmSql = "SELECT CI_SYS_ID,CI_POL_NO,CI_INTM_NO,CI_LOSS_DT,CI_INTM_DT,CI_ASSR_NAME,CI_EVENT_CODE FROM PGIT_CLM_INTIMATION WHERE CI_INTM_NO=:intmNo";
     const intimationData = await sequelize.query(intmSql, {
       type: QueryTypes.SELECT,
       replacements: { intmNo },
